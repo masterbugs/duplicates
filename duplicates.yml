@@ -8,7 +8,7 @@ spec:
     spec:
       containers:
         - name: duplicates
-          image: aqua-duplicates:latest
+          image: ramakrishnagudivada/aqua-duplicates:latest
           imagePullPolicy: IfNotPresent
           args:
             - "/opt/aqua/sample_dir"
