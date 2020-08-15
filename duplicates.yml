@@ -1,0 +1,16 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: duplicates
+spec:
+  template:
+    spec:
+      containers:
+        - name: duplicates
+          image: aqua-duplicates:latest
+          imagePullPolicy: IfNotPresent
+          args:
+            - "/opt/aqua/sample_dir"
+      restartPolicy: Never
+  backoffLimit: 4

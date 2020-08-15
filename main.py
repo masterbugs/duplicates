@@ -4,6 +4,10 @@ import hashlib
 
 
 def find_dups(input_directory):
+    '''
+    Takes path to a directory as input.
+    Returns a dictionary grouping the files with same content in lists.
+    '''
     # dups data structure => {hash:[file_names]}
     dups = {}
     print('Scanning the directory %s :::' % input_directory)
@@ -17,11 +21,15 @@ def find_dups(input_directory):
                 dups[file_hash].append(item)
             else:
                 dups[file_hash] = [item]
-
     return dups
 
 
 def hash_file(file_path, blocksize=65536):
+    '''
+    Reads content of a file and calculates md5 sum.
+    Contents are read in chunks of 64KB at a time.
+    A buffer is maintained before the hexdigest is calculated based on total bytes of the file.
+    '''
     hasher = hashlib.md5()
     with open(file_path, 'rb') as afile:
         buf = afile.read(blocksize)
@@ -32,14 +40,18 @@ def hash_file(file_path, blocksize=65536):
 
 
 def print_results(dups_dict):
+    '''
+    Takes {hash:[file_names]} dictionary as input.
+    It loops through the dictionary and prints the results to the console.
+    '''
     results = list(filter(lambda x: len(x) > 1, dups_dict.values()))
     if len(results) > 0:
-        print('Duplicates files found in the input direcory.')
-        print('___________________')
+        print('Duplicate files found in the input directory.')
+        print('==================================')
         for result in results:
             for file in result:
                 print('%s' % file, end='\t')
-            print('\n___________________')
+            print('\n==================================')
     else:
         print('No duplicate files found.')
 
